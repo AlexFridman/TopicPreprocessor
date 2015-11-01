@@ -21,7 +21,7 @@ class TopicParser:
     @staticmethod
     def extract_tags(soup: BeautifulSoup) -> list:
         tag_tags = soup.findAll(name='a', attrs={'rel': 'tag'})
-        return [tag_tag.get_text.lower() for tag_tag in tag_tags]
+        return [tag_tag.get_text().lower() for tag_tag in tag_tags]
 
     @staticmethod
     def extract_hubs(soup: BeautifulSoup) -> list:
