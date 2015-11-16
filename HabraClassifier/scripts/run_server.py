@@ -1,7 +1,9 @@
 __author__ = 'AlexF'
 
-from HabraClassifier import MLNBModel, TopicCleaner, TopicVectorizer, ClassificationServer
 import numpy as np
+
+from HabraClassifier import MLNBModel, TopicCleaner, TopicVectorizer, ClassificationServer
+
 # with open('', 'r') as fp:
 #     labels = json.load(fp)
 # pi = np.load('')
