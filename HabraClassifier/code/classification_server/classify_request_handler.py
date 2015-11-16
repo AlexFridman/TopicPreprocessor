@@ -14,7 +14,6 @@ class ClassifyRequestHandler(SimpleHTTPRequestHandler):
         return cls
 
     def do_GET(self):
-        print('I have a request!')
         try:
             raw_text = self.headers['text']
         except KeyError:
@@ -27,5 +26,5 @@ class ClassifyRequestHandler(SimpleHTTPRequestHandler):
         prediction = self.model.predict(feature_vec, labels_n)
 
         self.send_response(200)
-        self.send_header("prediction", json.dumps(prediction))
+        self.send_header('prediction', json.dumps(prediction))
         self.end_headers()
