@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
 __author__ = 'AlexF'
+from urllib import parse
 import json
+import os
 
 from requests import request
 
@@ -18,7 +21,15 @@ def get_raw_point(topic_id: int) -> (list, list):
     return raw_text, labels
 
 
+def send_classify_request(uri: str, text: str):
+    encode = str.encode(text)
+    params = {'text': encode}
+    data = parse.urlencode(params)
+    return request('POST', uri, data=data)
+
+
 while True:
+    print('=' * 25)
     user_input = input('command: ')
     if user_input == 'exit':
         break
@@ -36,11 +47,11 @@ while True:
         continue
 
     try:
-        resp = request('GET', 'localhost:8000', headers={'text': raw_text})
+        resp = send_classify_request('http://localhost:8000', raw_text)
         prediction = json.loads(resp.headers['prediction'])
-    except:
+    except Exception as e:
         print('Server is down')
         continue
 
-    print('Actual labels: ', ' ,'.join(labels))
-    print('Predicted labels: ', ' ,'.join(prediction))
+    print('Actual labels: ', ', '.join(labels))
+    print('Predicted labels: ', ', '.join(['{0}: {1:.3f}'.format(l, w) for l, w in prediction[:10]]))
