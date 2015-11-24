@@ -25,7 +25,7 @@ class TopicVectorizer:
         words = self.filter_features(text)
         word_count = Counter(words)
         not_null_idxs = [self._feature_idx[w] for w, c in word_count.items()]
-        feature_values = word_count.values()
+        feature_values = list(word_count.values())
 
         feature_vector = np.zeros(self._feature_num)
         feature_vector[not_null_idxs] = feature_values
