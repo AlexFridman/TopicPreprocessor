@@ -11,7 +11,6 @@ class MLNBModel:
 
     @staticmethod
     def scale(x: np.ndarray):
-        mean_x = x.mean()
         max_x = x.max()
         min_x = x.min()
         return (x - min_x) / (max_x - min_x)
