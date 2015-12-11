@@ -45,13 +45,14 @@ class ClassifyRequestHandler(SimpleHTTPRequestHandler):
                      'CONTENT_TYPE': self.headers['Content-Type'],
                      })
         text = data['text'].value
-        labels_n = data.headers.get('labels_n', None)
+        if 'label_n' in data:
+            label_n = int(data['label_n'].value)
+        else:
+            label_n = None
 
         tokens = self.cleaner.clean_text(text)
         feature_vec = self.vectorizer.vectorize_text(tokens)
-        prediction = self.model.predict(feature_vec, labels_n)
-        # predicted_labels = [l for l,w in prediction[:10]]
+        prediction = self.model.predict(feature_vec, label_n)
         self.send_response(200)
-        self.send_header('prediction', json.dumps(prediction))
-        # self.send_header('prediction', json.dumps(predicted_labels))
+        self.send_header('prediction', json.dumps(list(prediction)))
         self.end_headers()

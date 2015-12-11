@@ -21,9 +21,9 @@ def get_raw_point(topic_id: int) -> (list, list):
     return raw_text, labels
 
 
-def send_classify_request(uri: str, text: str):
+def send_classify_request(uri: str, text: str, label_n: int):
     encode = str.encode(text)
-    params = {'text': encode}
+    params = {'text': encode, 'label_n': label_n}
     data = parse.urlencode(params)
     return request('POST', uri, data=data)
 
@@ -47,11 +47,11 @@ while True:
         continue
 
     try:
-        resp = send_classify_request('http://localhost:8000', raw_text)
+        resp = send_classify_request('http://localhost:8000', raw_text, 5)
         prediction = json.loads(resp.headers['prediction'])
     except Exception as e:
         print('Server is down')
         continue
 
     print('Actual labels: ', ', '.join(labels))
-    print('Predicted labels: ', ', '.join(['{0}: {1:.3f}'.format(l, w) for l, w in prediction[:10]]))
+    print('Predicted labels: ', ', '.join(prediction))
