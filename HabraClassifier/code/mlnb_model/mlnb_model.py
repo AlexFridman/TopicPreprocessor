@@ -15,10 +15,10 @@ class MLNBModel:
         min_x = x.min()
         return (x - min_x) / (max_x - min_x)
 
-    def predict(self, x, labels_n=None):
+    def predict(self, x, label_n=None):
         log_probs = self.pi + x.dot(self.theta.transpose())
         scaled_log_probs = self.scale(log_probs)
-        ordered_idxs = scaled_log_probs.argsort()[::-1][:labels_n]
+        ordered_idxs = scaled_log_probs.argsort()[::-1][:label_n]
         # labels_and_log_probs = list(zip(self.labels[ordered_idxs],
         #                                 scaled_log_probs[ordered_idxs]))
         # return labels_and_log_probs
