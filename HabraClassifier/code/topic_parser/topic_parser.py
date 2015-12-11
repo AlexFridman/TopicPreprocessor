@@ -11,7 +11,7 @@ Topic = namedtuple('Topic', ['text', 'hubs', 'tags', 'name'])
 class TopicParser:
     @staticmethod
     def parse(html: str) -> Topic:
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, 'lxml')
         tags = TopicParser.extract_tags(soup)
         hubs = TopicParser.extract_hubs(soup)
         text = TopicParser.extract_text(soup)
