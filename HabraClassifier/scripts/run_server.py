@@ -7,7 +7,7 @@ import sys
 sys.path.append('D:/Study/Repos/HabraClassifier')
 from HabraClassifier.code import MLNBModel, TopicCleaner, TopicVectorizer, ClassificationServer
 
-path = 'D:/Study/Repos/HabraClassifier/HabraClassifier/'
+path = 'D:/Study/Repos/TopicPreprocessor/HabraClassifier/'
 with open(path + 'data/l_idx.json', 'r') as fp:
     label_idx = json.load(fp)
 labels_idxs = np.load(path + 'data/labels.npy')
