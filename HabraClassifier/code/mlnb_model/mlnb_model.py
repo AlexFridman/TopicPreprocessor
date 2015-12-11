@@ -19,6 +19,7 @@ class MLNBModel:
         log_probs = self.pi + x.dot(self.theta.transpose())
         scaled_log_probs = self.scale(log_probs)
         ordered_idxs = scaled_log_probs.argsort()[::-1][:labels_n]
-        labels_and_log_probs = list(zip(self.labels[ordered_idxs],
-                                        scaled_log_probs[ordered_idxs]))
-        return labels_and_log_probs
+        # labels_and_log_probs = list(zip(self.labels[ordered_idxs],
+        #                                 scaled_log_probs[ordered_idxs]))
+        # return labels_and_log_probs
+        return self.labels[ordered_idxs]
